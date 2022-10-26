@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in `seq 1 60`;
+for i in `seq 1 5`;
 
 	do
 
@@ -12,16 +12,27 @@ for i in `seq 1 60`;
 
 		btcPrice=$(echo "scale=4; $addedPrice / 3" | bc )
 		
-		echo "$btcPrice" >> test2.txt
+		echo "$btcPrice" >> test.txt
 
 		sleep 1m 
 
 	done
 
-ar="$(cat test2.txt )"
+ar="$(cat test.txt )"
 IFS=$'\n'
+all="$(echo "${ar[*]}" | sort -nr)"
 max="$(echo "${ar[*]}" | sort -nr | head -n1)"
+min="$(echo "${ar[*]}" | sort -n | head -n1)"
+open="$(echo "${ar[@]}" | head -n1)"
+close="$(echo "${ar[*]}" | tail -n -1 )"
+
+
 
 echo $max
 
-echo $max >> test2.txt
+echo "all is $all" >> test2.txt
+echo "min is $min" >> test2.txt
+echo "max is $max" >> test2.txt
+echo "open is $open" >> test2.txt
+echo "close is $close" >> test2.txt
+
